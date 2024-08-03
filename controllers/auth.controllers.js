@@ -28,9 +28,10 @@ export const register = async (req, res) => {
       },
     });
 
-    return ApiResponse(res, 200, newUser, "User Registerd Successfully");
+    return ApiResponse(res, 200, null, "User Registerd Successfully");
   } catch (error) {
-    return ApiError(res, 500, error, "Internal Error");
+    console.log(error);
+    return ApiError(res, 500, error.message, "Something Went Wrong");
   }
 };
 
@@ -66,15 +67,15 @@ export const login = async (req, res) => {
       "Abhijeet",
       { expiresIn: age }
     );
-
     res.cookie("token", token, {
       httpOnly: true,
-      // turn on secure option this while production mode, it requires https
-      // secure: true,
+      sameSite: "Lax", // Adjust according to your needs (Lax, Strict, None)
+      // secure: true, // Uncomment this if you're using HTTPS
       maxAge: age,
     });
 
-    return ApiResponse(res, 200, null, "Login Successfull");
+    const { password: undefiend, ...userData } = isUserExist;
+    return ApiResponse(res, 200, userData, "Login Successfull");
   } catch (error) {
     console.log(error.message);
     return ApiError(res, 500, error, "user not LoggedIn");

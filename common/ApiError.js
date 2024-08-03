@@ -1,7 +1,6 @@
-export const ApiError = (res, statusCode, error, message) => {
+export const ApiError = (res, statusCode, message) => {
   return res.status(statusCode).json({
     status: "error",
-    error: error.message || error,
-    message,
+    message: message,
   });
 };
