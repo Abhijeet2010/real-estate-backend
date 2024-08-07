@@ -60,7 +60,7 @@ export const login = async (req, res) => {
 
     const token = jwt.sign(
       {
-        id: isUserExist,
+        id: isUserExist.id,
         email: isUserExist.email,
         username: isUserExist.username,
       },
@@ -69,7 +69,6 @@ export const login = async (req, res) => {
     );
     res.cookie("token", token, {
       httpOnly: true,
-      sameSite: "Lax", // Adjust according to your needs (Lax, Strict, None)
       // secure: true, // Uncomment this if you're using HTTPS
       maxAge: age,
     });
