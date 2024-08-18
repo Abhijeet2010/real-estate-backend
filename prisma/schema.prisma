@@ -14,4 +14,51 @@ model User {
   password  String
   avatar    String?
   createdAt DateTime @default(now())
+  Post      Post[]
+}
+
+model Post {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  imges      String[]
+  title      String
+  address    String
+  city       String
+  price      Int
+  bedroom    Int
+  bathroom   Int
+  latitide   String
+  longitude  String
+  type       Type
+  property   Property
+  user       User        @relation(fields: [userId], references: [id])
+  userId     String      @db.ObjectId
+  postDetail PostDetail?
+  createdAt  DateTime    @default(now())
+}
+
+enum Type {
+  buy
+  rent
+}
+
+enum Property {
+  apartment
+  house
+  land
+}
+
+model PostDetail {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  desc       String?
+  utlities   String?
+  pet        String?
+  fees       String?
+  size       Int?
+  bedroom    Int?
+  bathroom   Int?
+  school     Int?
+  bus        Int?
+  restaurant Int?
+  post       Post    @relation(fields: [postId], references: [id])
+  postId     String  @unique @db.ObjectId
 }

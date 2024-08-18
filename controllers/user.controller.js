@@ -33,6 +33,7 @@ export const updateUser = async (req, res) => {
   }
 
   const { password, avatar, ...otherFields } = req.body;
+  console.log(avatar);
 
   try {
     let updatedHashPassword;
